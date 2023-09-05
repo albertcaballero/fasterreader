@@ -1,5 +1,4 @@
 import tkinter as tk
-import time
 
 i = 0
 interval = 300
@@ -28,12 +27,12 @@ def reader():
 window = tk.Tk()
 window.geometry("400x400")
 window.title("A faster Reader")
-entry = tk.Text(window, relief="groove", height=5, wrap="word")
+entry = tk.Text(window, relief="groove", height=8, wrap="word")
 entry.pack(pady=10)
+wpm_box = tk.Entry(window, width=6)
+wpm_box.pack(pady=5)
 tk.Button(window, text="go", command=reader).pack(pady=10)
 tk.Button(window, text="reset", command=reset).pack(pady=2)
-wpm_box = tk.Entry(window)
-wpm_box.pack(pady=5)
 word = tk.Label(window, text="", font="arial 22")
 word.pack(pady=20)
 
