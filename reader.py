@@ -2,29 +2,28 @@ import tkinter as tk
 import time
 
 i = 0
-speed = 1
+interval = 300
 
 def reset():
 	global i
 	i = 0;
 	word.config(text="")
 
-def get_speed(val):
-	global speed
-	speed = int(val)/1.73
+def wpm_to_ms():
+	global interval
+	wpm = int(wpm_box.get())
+	interval = int(1/(wpm/60)*1000)
 
 def reader():
-	global i, speed
-	print (int(300*(1/speed)))
+	global i, interval
+	wpm_to_ms()
 	text = entry.get(1.0, 'end')
 	list = text.split()
 	if (i < len(list)):
 		word.config(text=list[i])
 		i += 1
-		window.after(int(300*(1/speed)), reader)
+		window.after(interval, reader)
 	return
-	# if (i == len(list)):
-	#  	i = 0
 
 window = tk.Tk()
 window.geometry("400x400")
@@ -33,9 +32,9 @@ entry = tk.Text(window, relief="groove", height=5, wrap="word")
 entry.pack(pady=10)
 tk.Button(window, text="go", command=reader).pack(pady=10)
 tk.Button(window, text="reset", command=reset).pack(pady=2)
-speed_scale = tk.Scale(window, orient="horizontal", command=get_speed, from_=1, to=5)
-speed_scale.pack(pady=10)
-word = tk.Label(window, text="")
-word.pack(pady=10)
+wpm_box = tk.Entry(window)
+wpm_box.pack(pady=5)
+word = tk.Label(window, text="", font="arial 22")
+word.pack(pady=20)
 
 window.mainloop()
